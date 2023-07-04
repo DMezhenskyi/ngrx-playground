@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+.list {
+  flex-basis: 30%;
+  height: 100%;
+}
+.selected {
+  flex-basis: 70%;
+  height: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  max-width: 200px;
+}
+.card {
+  display: flex;
+}
+.scientist-card {
+  width: 300px;
+}
+.mini-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+}
+.selected-card {
+  border: 1px solid #4051b5;
+}

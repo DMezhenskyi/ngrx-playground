@@ -1,0 +1,53 @@
+<mat-progress-bar
+  *ngIf="isLoading$ | async; else scientistsBlock"
+  mode="indeterminate"
+  class="loader"
+></mat-progress-bar>
+<ng-template #scientistsBlock>
+  <section class="list">
+    <h2>List</h2>
+    <mat-card
+      class="mini-card"
+      [ngClass]="{
+        'selected-card': scientist.id === (selectedScientist$ | async)?.id
+      }"
+      *ngFor="let scientist of scientists$ | async"
+    >
+      <h4>{{ scientist.name }}</h4>
+      <button
+        color="primary"
+        mat-stroked-button
+        (click)="selectScientist(scientist)"
+      >
+        Select
+      </button>
+    </mat-card>
+  </section>
+  <section class="selected">
+    <div
+      *ngIf="selectedScientist$ | async as scientist; else emptySelected"
+      class="card"
+    >
+      <mat-card class="scientist-card">
+        <mat-card-header>
+          <mat-card-title
+            ><h2>{{ scientist.name }}</h2></mat-card-title
+          >
+        </mat-card-header>
+        <img
+          width="300"
+          mat-card-image
+          [src]="scientist.photoUrl"
+          [alt]="scientist.name"
+        />
+        <mat-card-content>
+          {{ scientist.description }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #emptySelected>
+  <div class="selected-placeholder"></div>
+</ng-template>
