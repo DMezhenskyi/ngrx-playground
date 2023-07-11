@@ -1,9 +1,7 @@
-import { createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { scientistsActionsAPI } from './actions/scientists.actions';
 import { scientistsPageActions } from './actions/scientists-page.actions';
 import { Scientist } from '../scientists.model';
-
-export const scientistsFeatureKey = 'scientistsFeature';
 
 export interface State {
   scientists: Scientist[];
@@ -17,7 +15,7 @@ export const initialState: State = {
   selectedId: null,
 };
 
-export const reducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(scientistsPageActions.load, (state) => ({ ...state, isLoading: true })),
   on(scientistsPageActions.select, (state, { id }) => ({
@@ -34,3 +32,14 @@ export const reducer = createReducer(
     isLoading: false,
   }))
 );
+export const scientistFeature = createFeature({
+  name: 'scientistsFeature',
+  reducer,
+  extraSelectors: ({ selectSelectedId, selectScientists }) => ({
+    selectSelectedScientist: createSelector(
+      selectSelectedId,
+      selectScientists,
+      (selectedId, scientists) => scientists.find((s) => s.id === selectedId)
+    )
+  })
+})

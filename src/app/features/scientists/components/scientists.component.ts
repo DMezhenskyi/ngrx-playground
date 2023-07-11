@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
 import { scientistsPageActions } from '../state/actions/scientists-page.actions';
-import * as scientistsSelectors from '../state/scientists.selectors';
+import { scientistFeature } from '../state/scientists.state';
 import { Scientist } from '../scientists.model';
 
 @Component({
@@ -26,11 +26,11 @@ import { Scientist } from '../scientists.model';
 export class ScientistsComponent {
   store = inject(Store);
 
-  scientists$ = this.store.select(scientistsSelectors.selectScientists);
+  scientists$ = this.store.select(scientistFeature.selectScientists);
   selectedScientist$ = this.store.select(
-    scientistsSelectors.selectSelectedScientist
+    scientistFeature.selectSelectedScientist
   );
-  isLoading$ = this.store.select(scientistsSelectors.selectIsLoading);
+  isLoading$ = this.store.select(scientistFeature.selectIsLoading);
 
   ngOnInit() {
     this.store.dispatch(scientistsPageActions.load());
